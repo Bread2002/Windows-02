@@ -6,14 +6,14 @@
 
 ## 📌 Overview
 
-A personal portfolio that boots like a Windows 98 machine. Built using **React TS + FastAPI**, and styled with the help of [98.css](https://github.com/jdan/98.css). Navigate through a BIOS screen, log in, and experience a desktop populated with icons linking to publications, a resume, LinkedIn, GitHub, and more — because why settle for a normal portfolio page?
+A personal portfolio that boots like a Windows 98 machine. Built using **React + TypeScript** with Vercel serverless functions, and styled with the help of [98.css](https://github.com/jdan/98.css). Navigate through a BIOS screen, log in, and experience a desktop populated with icons linking to publications, a resume, LinkedIn, GitHub, and more — because why settle for a normal portfolio page?
 
 ---
 
 ## ⚙️ Features
 
 - 💾 **BIOS Boot Sequence** — Randomized POST screen with memory counting, IDE drive detection, and a rotating set of cryptic BIOS events; Spacebar to boot, Escape to skip
-- 🔐 **Login Screen** — Windows 98-style dialog backed by a FastAPI stub; ready to wire up real authentication
+- 🔐 **Login Screen** — Windows 98-style dialog backed by a Vercel serverless function; ready to wire up real authentication
 - 🖥️ **Desktop** — Drag icons to the Recycle Bin, right-click for a context menu, and open Display Properties to recolor the desktop background
 - 📁 **File Explorer Windows** — Publications and My Documents open in Win98-style Explorer overlays with a detail pane and status bar
 - 🗑️ **Recycle Bin** — Drag-and-drop icons in; restore or permanently delete them from the Recycle Bin window; supports multi-select with Ctrl and Shift
