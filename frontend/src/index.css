@@ -1,0 +1,759 @@
+﻿@font-face {
+  font-family: "Perfect DOS VGA 437";
+  src: url('/bios/perfect-dos-vga437.woff2') format('woff2');
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* Suppress dark mode */
+  color-scheme: light;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/*  Desktop  */
+
+.desktop {
+  width: 100vw;
+  height: 100vh;
+  background: #008080ee;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop-canvas {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.desktop-icon-area {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.desktop-icons-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  padding: 6px;
+  cursor: default;
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.desktop-icon--dragging {
+  opacity: 0.4;
+}
+
+.desktop-icon-ghost {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0.85;
+  cursor: grabbing;
+  z-index: 1000;
+}
+
+.desktop-icon:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.desktop-icon:focus {
+  outline: 1px dotted white;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 120, 0.4);
+}
+
+.desktop-icon-img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+  image-rendering: pixelated;
+}
+
+.desktop-icon span {
+  color: #fff;
+  font-size: 13px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+  text-align: center;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/*  Boot screen  */
+
+.boot-screen {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  color: #aaa;
+  font-family: "Perfect DOS VGA 437", 'Courier New', monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 640px) {
+  .boot-screen {
+    font-size: 11px;
+  }
+}
+
+.boot-screen--press {
+  justify-content: center;
+  align-items: center;
+}
+
+.boot-press-prompt {
+  margin: 0;
+  font-size: 18px;
+  color: #aaa;
+  animation: bios-blink 1s step-end infinite;
+}
+
+@keyframes bios-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.boot-screen-content {
+  flex: 1;
+  padding: 20px 25px;
+  overflow: hidden;
+  position: relative;
+}
+
+.boot-screen-footer {
+  background: #00a;
+  color: #fff;
+  text-align: center;
+  padding: 2px 8px;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .boot-screen-footer {
+    font-size: 11px;
+  }
+}
+
+.bios-info p {
+  margin: 0;
+}
+
+.bios-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.bios-blip {
+  width: 30px;
+  height: 30px;
+  image-rendering: pixelated;
+}
+
+@media (max-width: 640px) {
+  .bios-blip {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.bios-header {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  opacity: 1;
+  transition: opacity 1s linear;
+}
+
+.bios-header img {
+  max-width: 125%;
+  height: auto;
+  display: block;
+}
+
+.bios-header-faded {
+  opacity: 0;
+}
+
+@media (max-width: 1100px) {
+  .bios-header {
+    display: none;
+  }
+}
+
+.bios-mem-count {
+  color: #fff;
+}
+
+.bios-pnp {
+  margin-top: 6px;
+}
+
+.bios-pnp p {
+  margin: 0;
+}
+
+.bios-hdd {
+  margin-top: 4px;
+}
+
+.bios-hdd-line {
+  margin: 0;
+  white-space: pre;
+}
+
+.bios-event {
+  margin-top: 8px;
+  color: #fff;
+}
+
+.bios-last {
+  position: absolute;
+  bottom: 20px;
+  left: 25px;
+}
+
+.bios-last p {
+  margin: 0;
+}
+
+.bios-last strong {
+  color: #fff;
+  font-weight: normal;
+}
+
+/*  Login screen  */
+
+.login-screen {
+  width: 100vw;
+  height: 100vh;
+  background: #008080ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-window {
+  width: 350px;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.login-logo {
+  flex-shrink: 0;
+  background: conic-gradient(
+    #ff0000 0deg 90deg,
+    #00aa00 90deg 180deg,
+    #0000ff 180deg 270deg,
+    #ffaa00 270deg 360deg
+  );
+}
+
+.login-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.login-form-fields .field-row-stacked label {
+  margin-bottom: 2px;
+}
+
+.login-form-fields input {
+  width: 100%;
+}
+
+.login-error {
+  color: #c00;
+  font-size: 11px;
+  margin: 0 0 10px;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/*  Taskbar  */
+
+.taskbar {
+  width: 100%;
+  height: 36px;
+  background: silver;
+  box-shadow: inset 0 1px 0 #fff, inset 0 2px 0 #dfdfdf;
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.taskbar-start {
+  height: 28px;
+  font-weight: bold;
+  padding: 0 10px;
+  min-width: 66px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.taskbar-divider {
+  width: 1px;
+  height: 20px;
+  background: #808080;
+  box-shadow: 1px 0 0 #fff;
+  margin: 0 2px;
+}
+
+.taskbar-tray {
+  margin-left: auto;
+  height: 28px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey;
+  font-size: 13px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+  min-width: 86px;
+  justify-content: center;
+}
+
+/*  File explorer overlay  */
+
+.explorer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Subtle backdrop without blocking the desktop feel */
+}
+
+.explorer-window {
+  width: 900px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.explorer-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-bottom: 1px solid #808080;
+}
+
+.explorer-toolbar button {
+  min-width: auto;
+  padding: 0 10px;
+  height: 26px;
+  min-height: 26px;
+  font-size: 13px;
+}
+
+.explorer-address-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-bottom: 1px solid #808080;
+  font-size: 13px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+}
+
+.explorer-address-bar label {
+  white-space: nowrap;
+}
+
+.explorer-address-bar input {
+  flex: 1;
+  height: 20px;
+}
+
+.explorer-body {
+  flex: 1;
+  padding: 6px;
+}
+
+.explorer-file-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+}
+
+.explorer-file-list li {
+  display: flex;
+  align-items: center;
+  padding: 4px 4px;
+  cursor: default;
+  user-select: none;
+  font-size: 13px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+}
+
+.explorer-file-list li:hover,
+.explorer-file-list li.explorer-item--selected {
+  background: navy;
+  color: white;
+}
+
+.explorer-file-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.explorer-file-icon {
+  width: 15px;
+  height: 14px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.explorer-file-icon svg,
+.explorer-file-icon img {
+  width: 18px !important;
+  height: 18px !important;
+  display: block;
+  flex-shrink: 0;
+}
+
+.explorer-pane {
+  height: 240px;
+  overflow-y: auto;
+}
+
+.explorer-detail-pane {
+  margin-top: 6px;
+  padding: 8px 10px;
+  min-height: 110px;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-bottom: 1px solid #808080;
+  border-right: 1px solid #808080;
+  font-size: 13px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+}
+
+.explorer-detail-row {
+  display: flex;
+  gap: 6px;
+  line-height: 1.6;
+}
+
+.explorer-detail-label {
+  font-weight: bold;
+  white-space: nowrap;
+  min-width: 130px;
+}
+
+.explorer-detail-placeholder {
+  color: #808080;
+  font-style: italic;
+}
+
+.explorer-status {
+  margin: 0 1px;
+}
+
+/*  Recycle Bin window  */
+
+.recycle-empty-msg {
+  padding: 8px;
+  margin: 0;
+  color: #808080;
+  font-size: 11px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+}
+
+.recycle-bin-row {
+  justify-content: space-between !important;
+}
+
+.recycle-bin-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recycle-bin-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.recycle-bin-actions button {
+  min-width: auto;
+  padding: 0 6px;
+  height: 18px;
+  min-height: 18px;
+  font-size: 10px;
+}
+
+/*  Desktop context menu  */
+
+.desktop-context-menu {
+  position: fixed;
+  z-index: 500;
+  list-style: none;
+  margin: 0;
+  padding: 2px;
+  background: silver;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+  box-shadow: 1px 1px 0 #808080 inset;
+  min-width: 120px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+}
+
+.desktop-context-menu li {
+  padding: 4px 20px 4px 24px;
+  cursor: default;
+  user-select: none;
+}
+
+.desktop-context-menu li:hover {
+  background: navy;
+  color: #fff;
+}
+
+/*  Display Properties dialog  */
+
+.display-props-divider {
+  border: none;
+  border-top: 3px solid #808080;
+  margin: 0;
+}
+
+.display-props-window {
+  width: 450px;
+}
+
+.display-props-body {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-props-tablist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  list-style: none;
+  margin: 0;
+  padding: 4px 4px 0;
+  gap: 0;
+  background: silver;
+  border-bottom: 2px solid #808080;
+}
+
+.display-props-tablist li[role="tab"] {
+  padding: 3px 10px;
+  cursor: default;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+  background: silver;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: none;
+  margin-right: 2px;
+  position: relative;
+  top: 2px;
+  user-select: none;
+}
+
+.display-props-tablist li[aria-selected="true"] {
+  font-weight: bold;
+  background: silver;
+  z-index: 1;
+  padding-bottom: 5px;
+  border-bottom: 2px solid silver;
+}
+
+.display-tab--disabled {
+  color: #808080 !important;
+  cursor: not-allowed !important;
+}
+
+.display-props-panel {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: silver;
+}
+
+/* Mini desktop preview */
+.display-preview-frame {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  padding: 6px;
+  background: #000;
+  align-self: center;
+  width: 180px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.display-preview-desktop {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.display-preview-win {
+  position: absolute;
+  top: 20px;
+  left: 35px;
+  width: 100px;
+  height: 60px;
+  background: #808080;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.display-preview-titlebar {
+  height: 7px;
+  background: navy;
+  margin: 1px 2px 0;
+}
+
+.display-preview-content {
+  margin: 2px;
+  height: calc(100% - 12px);
+  background: silver;
+}
+
+/* Color selection */
+.display-color-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.display-color-label {
+  margin: 0;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+}
+
+.display-color-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 22px);
+  grid-auto-rows: 22px;
+  gap: 3px;
+  justify-content: start;
+}
+
+.display-color-swatch {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 1px solid #808080;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.display-color-swatch:hover {
+  border-color: #000;
+}
+
+.display-color-swatch--selected {
+  border: 2px solid #000;
+  box-shadow: 0 0 0 1px #fff inset;
+}
+
+.display-color-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+}
+
+.display-color-preview-chip {
+  width: 32px;
+  height: 16px;
+  border: 1px solid #808080;
+  flex-shrink: 0;
+}
+
+.display-color-preview-hex {
+  color: #444;
+}
+
+/* OK / Cancel / Apply row */
+.display-props-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 8px 12px 10px;
+  background: silver;
+  border-top: 1px solid #808080;
+}
+
+.display-props-actions button {
+  min-width: 70px;
+}
+
