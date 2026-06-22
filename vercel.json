@@ -1,5 +1,8 @@
 {
   "buildCommand": "npm install --prefix frontend/98.css && npm run build --prefix frontend/98.css && npm install --prefix frontend && npm run build --prefix frontend",
   "outputDirectory": "frontend/dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

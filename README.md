@@ -26,9 +26,9 @@ A personal portfolio that boots like a Windows 98 machine. Built using **React T
 
 ```
 Personal_Website/
-├── backend/                        # FastAPI Python backend
-│   ├── main.py                     # Entry point, CORS config, login stub
-│   └── requirements.txt            # Python dependencies
+├── api/                            # Vercel Python serverless functions
+│   ├── health.py                   # GET /api/health
+│   └── login.py                    # POST /api/login
 ├── frontend/                       # React + TypeScript (Vite) frontend
 │   ├── public/
 │   │   ├── bios/                   # Boot screen assets (sounds, font, images)
@@ -67,7 +67,6 @@ Personal_Website/
 
 ### Prerequisites
 
-- Python 3.11+
 - Node.js 24+
 
 ---
@@ -86,72 +85,24 @@ npm run build
 
 ---
 
-### 🖥️ Run the Backend
+### 🌐 Run Locally
 
-1. Create a virtual environment and install dependencies:
-
-   ```bash
-   cd backend
-   python -m venv .venv
-   .venv\Scripts\pip install -r requirements.txt   # Windows
-   # or
-   .venv/bin/pip install -r requirements.txt       # macOS/Linux
-   ```
-
-2. Start the server:
-
-   ```bash
-   .venv\Scripts\python -m uvicorn main:app --reload --port 8000   # Windows
-   # or
-   .venv/bin/python -m uvicorn main:app --reload --port 8000       # macOS/Linux
-   ```
-
-   REST API runs on `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
-
-> ⚠️ **Note:** The login endpoint currently accepts any non-empty username and password. It is a stub — replace the body of `login()` in `backend/main.py` with real authentication logic before deploying.
-
----
-
-### 🌐 Run the Frontend
-
-1. Install dependencies:
-
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-2. Run:
-
-   ```bash
-   npm run dev
-   ```
-
-   Frontend runs on `http://localhost:5173`.
-
----
-
-### ⚡ Quick Start (Dev Script)
-
-Once dependencies are installed (and 98.css is built), launch both servers at once from the project root:
-
-```powershell
-# Windows
-.\scripts\dev.ps1
-```
+Install the [Vercel CLI](https://vercel.com/docs/cli) and run both the frontend and API functions with a single command:
 
 ```bash
-# macOS/Linux
-bash scripts/dev.sh
+npm install -g vercel
+vercel dev
 ```
 
-This opens the backend and frontend in separate terminal windows so you can see live logs from each server.
+`vercel dev` builds the frontend, starts the Vite dev server, and runs the `api/` serverless functions on the same port — no separate backend process needed.
+
+> ⚠️ **Note:** The login endpoint currently accepts any non-empty username and password. It is a stub — replace the body of `handler.do_POST()` in `api/login.py` with real authentication logic before deploying.
 
 ---
 
 ## 🔌 API Endpoints
 
-| Method | Endpoint  | Description                                                                                                                |
-| ------ | --------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `GET`  | `/health` | Returns `{ "status": "ok" }` — confirms the backend is running                                                             |
-| `POST` | `/login`  | Accepts `{ username, password }`; returns `{ success, message }` — currently a stub that accepts any non-empty credentials |
+| Method | Endpoint       | Description                                                                                                                |
+| ------ | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `GET`  | `/api/health`  | Returns `{ "status": "ok" }` — confirms the serverless function is running                                                 |
+| `POST` | `/api/login`   | Accepts `{ username, password }`; returns `{ success, message }` — currently a stub that accepts any non-empty credentials |
