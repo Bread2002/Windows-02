@@ -122,7 +122,7 @@ export const RESUME: ResumeEntry = {
   type: "resume",
   name: "Personal Resume.pdf",
   title: "Personal Resume",
-  lastUpdated: "02/21/2026",
+  lastUpdated: "08/17/2026",
   author: "Rye Stahle-Smith",
   url: "/resume/Personal_Resume.pdf",
 };

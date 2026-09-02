@@ -233,6 +233,24 @@ function DetailPane({ entry }: { entry: Entry | null }) {
 export default function FileExplorer({ title, path, onClose, entries }: Props) {
   const [hovered, setHovered] = useState<Entry | null>(null);
 
+  function entryDate(entry: Entry): number {
+    const date =
+      entry.type === "publication"
+        ? entry.datePublished
+        : entry.type === "resume"
+          ? entry.lastUpdated
+          : entry.type === "file"
+            ? entry.dateCreated
+            : "";
+    const [month, day, year] = date.split("/").map(Number);
+    return year && month && day ? Date.UTC(year, month - 1, day) : 0;
+  }
+
+  const sortedEntries = [...entries].sort((first, second) => {
+    const dateDifference = entryDate(second) - entryDate(first);
+    return dateDifference || first.name.localeCompare(second.name);
+  });
+
   function entryUrl(entry: Entry): string | undefined {
     if (entry.type === "publication") return entry.url;
     if (entry.type === "resume") return entry.url;
@@ -274,7 +292,7 @@ export default function FileExplorer({ title, path, onClose, entries }: Props) {
           <div className="explorer-body">
             <div className="sunken-panel explorer-pane">
               <ul className="explorer-file-list">
-                {entries.map((entry) => {
+                {sortedEntries.map((entry) => {
                   const url = entryUrl(entry);
                   const content = (
                     <>
