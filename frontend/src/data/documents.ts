@@ -3,6 +3,24 @@ import type { PublicationEntry, ResumeEntry } from "../components/FileExplorer";
 export const PUBLICATIONS: PublicationEntry[] = [
   {
     type: "publication",
+    name: "Lightweight Multimodal Fusion for Real-Time Cybersecurity of Optical and Thermal In-Situ Monitoring Signals in Metal Additive Manufacturing.pdf",
+    title:
+      "Lightweight Multimodal Fusion for Real-Time Cybersecurity of Optical and Thermal In-Situ Monitoring Signals in Metal Additive Manufacturing",
+    datePublished: "08/23/2026",
+    publisher: "Proceedings of the IDETC-CIE 2026",
+    authors: [
+      "Nishant Chinnasami",
+      "Rye Stahle-Smith",
+      "Zaki Bushiri",
+      "Mumin Adhami",
+      "Austin R.J. Downey",
+      "Lang Yuan",
+      "Rasha Karakchi",
+    ],
+    url: "https://cse.sc.edu/~adowney2/publications/peer_reviewed_conference/Chinnasami2026LightweightMultimodalFusion.pdf",
+  },
+  {
+    type: "publication",
     name: "Machine Learning-Based Graph Simplification for Symbolic Accelerators.pdf",
     title:
       "Machine Learning-Based Graph Simplification for Symbolic Accelerators",
