@@ -374,8 +374,8 @@ html, body {
 }
 
 .explorer-window {
-  width: 900px;
-  min-height: 420px;
+  width: 950px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
 }
